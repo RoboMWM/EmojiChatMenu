@@ -7,6 +7,7 @@ main: com.robomwm.customemotes.CustomEmotes
 commands:
    emote:
       description: View emotes
+      aliases: [emoji, emoticons, emoticon, emotes, emojis, emojimovie, customemotes]
    clearemoterequests:
       usage: /clearemoterequests - clears pending emote requests
       permission: emote.moderator
