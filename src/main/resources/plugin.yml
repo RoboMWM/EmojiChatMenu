@@ -1,0 +1,29 @@
+name: CustomEmotes
+description: Emoticons, emotes, emoji, emoji movie
+author: RoboMWM
+website: https://robomwm.com
+version: ${project.version}
+main: com.robomwm.customemotes.CustomEmotes
+commands:
+   emote:
+      description: View emotes
+   clearemoterequests:
+      usage: /clearemoterequests - clears pending emote requests
+      permission: emote.moderator
+   addemote:
+      description: Add emotes
+      usage: /addemote <code> <emote...>
+      permission: emote.add
+      aliases: [emoteadd]
+permissions:
+    dimensionteleporter.*:
+        description: Grants ALL THE THINGS
+        children:
+            emote.add: true
+            emote.moderator: true
+    emote.moderator:
+        description: Views, clears, and is notified of new emote requests. Can add emotes without approval.
+        default: op
+    emote.add:
+        description: Permission to /addemote
+        default: true
