@@ -12,6 +12,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -125,6 +126,12 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             emoteYaml.set(code, emojiMovie.get(pattern));
         }
         UsefulUtil.saveYamlFileDelayed(this, "emotes.yml", emoteYaml);
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST)
+    private void onEmoteModJoin(PlayerJoinEvent event)
+    {
+        notifyNewRequests(event.getPlayer());
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
