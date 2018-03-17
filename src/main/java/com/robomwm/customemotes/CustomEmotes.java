@@ -51,6 +51,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             put(":flip:", "( ﾉ⊙︵⊙）ﾉ ︵ ┻━┻");
             put(":flip:", "┻━┻ ︵ ¯\\ (ツ)/¯ ︵ ┻━┻");
             put(":flip:", "(ノᚖ⍘ᚖ)ノ彡┻━┻");
+            put("unflip", "┬──┬◡ﾉ(° -°ﾉ)");
             put(":lenny:", "( ͡°( ͡° ͜ʖ( ͡° ͜ʖ ͡°)ʖ ͡°) ͡°)");
             put(":lenny:", "( ͜。 ͡ʖ ͜。)");
             put(":lenny:", "乁(´益`)ㄏ");
