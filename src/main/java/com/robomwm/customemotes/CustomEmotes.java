@@ -41,7 +41,6 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
         for (String emoteCode : emoteYaml.getKeys(false))
             for (String emote : emoteYaml.getStringList(emoteCode))
                 put(emoteCode, emote);
-        getConfig().addDefault("promptToAdd", true);
         if (getConfig().getBoolean("firstrun", true))
         {
             getConfig().set("firstrun", false);
@@ -113,6 +112,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             put(":(", "☹");
             saveEmotes();
         }
+        getConfig().addDefault("promptToAdd", true);
         getConfig().options().copyDefaults();
         saveConfig();
         getServer().getPluginManager().registerEvents(this, this);
