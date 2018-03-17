@@ -113,7 +113,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             saveEmotes();
         }
         getConfig().addDefault("promptToAdd", true);
-        getConfig().options().copyDefaults();
+        getConfig().options().copyDefaults(true);
         saveConfig();
         getServer().getPluginManager().registerEvents(this, this);
     }
