@@ -223,7 +223,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             return true;
         }
 
-        if (cmd.getName().equalsIgnoreCase("/clearemoterequests"))
+        if (cmd.getName().equalsIgnoreCase("clearemoterequests"))
         {
             emoteRequests.clear();
             sender.sendMessage("Cleared all emote requests");
