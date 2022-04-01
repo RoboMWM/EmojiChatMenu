@@ -4,6 +4,7 @@ author: RoboMWM
 website: https://robomwm.com
 version: ${project.version}
 main: com.robomwm.customemotes.CustomEmotes
+api-version: '1.13'
 commands:
    emote:
       description: View emotes
