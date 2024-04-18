@@ -1,8 +1,6 @@
 package com.robomwm.customemotes;
 
-import com.robomwm.usefulutil.UsefulUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -24,6 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java.io.File;
+
 /**
  * Created on 3/17/2018.
  *
@@ -37,7 +37,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
     public void onEnable()
     {
         saveConfig();
-        emoteYaml = UsefulUtil.loadOrCreateYamlFile(this, "emotes.yml", '•');
+        emoteYaml = LazyUtil.loadOrCreateYamlFile(this, "emotes.yml", '•');
         for (String emoteCode : emoteYaml.getKeys(false))
             for (String emote : emoteYaml.getStringList(emoteCode))
                 put(emoteCode, emote);
@@ -125,7 +125,30 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
             String code = pattern.pattern().substring(9, pattern.pattern().length() - 8);
             emoteYaml.set(code, emojiMovie.get(pattern));
         }
-        UsefulUtil.saveYamlFileDelayed(this, "emotes.yml", emoteYaml);
+        saveYamlFile(this, "emotes.yml", emoteYaml); //TODO: make this async
+    }
+
+    public static boolean saveYamlFile(JavaPlugin plugin, String fileName, YamlConfiguration yaml)
+    {
+        File storageFile = new File(plugin.getDataFolder(), fileName);
+        if (yaml.getKeys(false).isEmpty())
+        {
+            storageFile.delete();
+            return true;
+        }
+        try
+        {
+            storageFile.getParentFile().mkdirs();
+            storageFile.createNewFile();
+            yaml.save(storageFile);
+        }
+        catch (Exception e)
+        {
+            plugin.getLogger().severe("Could not save " + storageFile.toString());
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -199,7 +222,7 @@ public class CustomEmotes extends JavaPlugin implements CommandExecutor, Listene
         {
             String code = args[0];
             args[0] = null;
-            String emote = StringUtils.join(args, ' ').substring(1);
+            String emote = String.join(" ", args).substring(1);
 
             if (!sender.hasPermission("emote.moderator"))
             {

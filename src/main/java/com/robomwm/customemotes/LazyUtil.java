@@ -6,9 +6,14 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
+import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.plugin.Plugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -98,5 +103,25 @@ public class LazyUtil
         textComponent.setColor(ChatColor.AQUA);
         textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, TextComponent.fromLegacyText(hover)));
         return textComponent;
+    }
+
+    /**
+     * Loads a yaml file with the specified pathSeparator
+     * @param plugin
+     * @param fileName
+     * @param pathSeparator
+     * @return
+     */
+    public static YamlConfiguration loadOrCreateYamlFile(Plugin plugin, String fileName, char pathSeparator)
+    {
+        YamlConfiguration yamlConfiguration = new YamlConfiguration();
+        yamlConfiguration.options().pathSeparator(pathSeparator);
+        File storageFile = new File(plugin.getDataFolder(), fileName);
+        try
+        {
+            yamlConfiguration.load(storageFile);
+        }
+        catch (InvalidConfigurationException | IOException ignored) {}
+        return yamlConfiguration;
     }
 }
